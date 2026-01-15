@@ -6,14 +6,14 @@ import UserService from "./UserService";
 
 const ListService = {
   getList: async (listID: string): Promise<List> => {
-    const response = await api.get(`/list-entries/${listID}`) as ListDTO;
+    const response = await api.get(`/list-entries/${listID}`);
     const data: List = {
-      id: response.id,
-      title: response.title,
-      text: response.text,
-      importance: Importance[response.importance as keyof typeof Importance],
-      createdAt: new Date(response.createdAt),
-      user: response.user,
+      id: response.data.id,
+      title: response.data.title,
+      text: response.data.text,
+      importance: Importance[response.data.importance as keyof typeof Importance],
+      createdAt: new Date(response.data.createdAt),
+      user: response.data.user,
     };
     return data;
   },
@@ -23,7 +23,7 @@ const ListService = {
   },
 
   addList: (list: List) => {
-    return api.post("/list-entries", list).then((res) => {
+    return api.post("/list-entries", {title: list.title, text: list.text, importance: list.importance, createdAt: new Date(), user: list.user }).then((res) => {
       return res.data;
     });
   },

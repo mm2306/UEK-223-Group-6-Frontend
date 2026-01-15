@@ -6,6 +6,7 @@ import HomePage from '../components/pages/HomePage';
 import UserTable from '../components/pages/UserPage/UserTable';
 import ListTable from '../components/pages/ListPage/ListTable';
 import UserPage from '../components/pages/UserPage/UserPage';
+import ListPage from '../components/pages/ListPage/ListPage';
 import authorities from '../config/Authorities';
 
 /**
@@ -40,11 +41,29 @@ const Router = () => {
         }
       />
       <Route
+        path='/list/edit'
+        element={
+          <PrivateRoute
+            requiredAuths={[authorities.USER_CREATE]}
+            element={<ListPage />}
+          ></PrivateRoute>
+        }
+      />
+      <Route
         path='/user/edit/:userId'
         element={
           <PrivateRoute
             requiredAuths={[authorities.USER_CREATE]}
             element={<UserPage />}
+          ></PrivateRoute>
+        }
+      />
+      <Route
+        path='/list/edit/:listEntryId'
+        element={
+          <PrivateRoute
+            requiredAuths={[authorities.USER_CREATE]}
+            element={<ListPage />}
           ></PrivateRoute>
         }
       />

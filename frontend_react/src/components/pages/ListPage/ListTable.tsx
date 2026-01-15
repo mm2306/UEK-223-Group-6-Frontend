@@ -18,11 +18,11 @@ const ListTable = () => {
   }, []);
 
   const handleAdd = () => {
-    navigate('../user/edit/');
+    navigate('../list/edit/');
   };
 
   const handleEdit = (id: string) => {
-    navigate('../user/edit/' + id);
+    navigate('../list/edit/' + id);
   };
 
   const handleDelete = (id: string) => {
