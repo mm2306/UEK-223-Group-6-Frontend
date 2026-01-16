@@ -60,8 +60,8 @@ const ListService = {
     return data;
   },
 
-  deleteList: (id: string) => {
-    return api.delete(`/list-entries/${id}`);
+  deleteList: async (id: string) => {
+    return await api.delete(`/list-entries/${id}`);
   },
 };
 
