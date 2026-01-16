@@ -11,7 +11,7 @@ const ListService = {
       importance: Importance[response.data.importance as keyof typeof Importance],
       createdAt: new Date(response.data.createdAt),
       user: response.data.user,
-    };
+    } as List;
   },
 
   updateList: (list: List) => {
@@ -28,8 +28,8 @@ const ListService = {
     return res.data;
   },
 
-  getAllLists: async (page = 0) => {
-    const response = await api.get(`/list-entries/user?page=${page}`);
+  getAllLists: async (page = 0, params?: { importance?: string; sortBy?: string; sortOrder?: string }) => {
+    const response = await api.get(`/list-entries/user?page=${page}`, {params});
     const data: List[] = (response.data as ListDTO[]).map((listElement) => {
       return {
         id: listElement.id,
@@ -42,10 +42,10 @@ const ListService = {
       } as List;
     });
     return data;
-  },
+    },
 
-  getAllListsAdmin: async (page = 0) => {
-    const response = await api.get(`/list-entries?page=${page}`);
+  getAllListsAdmin: async (page = 0, params?: { importance?: string; sortBy?: string; sortOrder?: string }) => {
+    const response = await api.get(`/list-entries?page=${page}`, { params });
     const data: List[] = (response.data as ListDTO[]).map((listElement) => {
       return {
         id: listElement.id,

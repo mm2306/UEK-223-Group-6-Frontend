@@ -1,9 +1,10 @@
 import Button from "@mui/material/Button";
-import { List } from "../../../types/models/List.model";
+import { List, SortByListCategories } from "../../../types/models/List.model";
 import ListService from "../../../Services/ListService";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ListEntry from "../../molecules/ListEntry";
+import ListDropdowns from "../../molecules/ListDropdowns/ListDropdowns";
 
 const ListTable = () => {
   const navigate = useNavigate();
@@ -12,17 +13,36 @@ const ListTable = () => {
   const [totalPages, setTotalPages] = useState<number>(0);
 
 
+  const [filterValue, setFilterValue] = useState<string>('');
+  const [sortValue, setSortValue] = useState<SortByListCategories>();
+
+  const loadLists = (importance?: string, sortBy?: string, order?: string) => {
+    const params: any = {};
+    if (importance) params.importance = importance;
+    if (sortBy) {
+      const SORT_FIELD_MAP: Record<string,string> = {
+        [SortByListCategories.DATE]: 'createdAt',
+        [SortByListCategories.IMPORTANCE]: 'importance',
+        [SortByListCategories.USER]: 'user',
+      };
+      params.sortBy = SORT_FIELD_MAP[sortBy] || sortBy;
+    }
+    if (order) params.sortOrder = order;
+
   useEffect(() => {
-    ListService.getAllLists(page).then((data) => {
+      loadLists(filterValue || undefined, sortValue || undefined, sortOrder || undefined);
+    ListService.getAllLists(page, params).then((data) => {
       setLists(data);
     });
-  }, [page]);
+  }, [page, filterValue, sortValue]);
 
   useEffect(() => {
     ListService.getAllListsPagesCount().then((count) => {
       setTotalPages(count);
+        loadLists();
     });
   }, []);
+
   const handleAdd = () => {
     navigate("../list/edit/list");
   };
@@ -33,8 +53,8 @@ const ListTable = () => {
 
   const handleDelete = async (id: string) => {
     await ListService.deleteList(id);
-    globalThis.location.reload();
-    alert("You deleted you list entry!");
+    window.location.reload();
+    alert("You deleted your list entry!");
   };
 
   return (
@@ -51,6 +71,12 @@ const ListTable = () => {
       >
         Homepage
       </Button>
+        <ListDropdowns
+            filterValue={filterValue}
+            sortValue={sortValue}
+            onFilterChange={setFilterValue}
+            onSortChange={setSortValue}
+        />
       {"  "}
       {lists.map((list) => (
         <div key={list.id}>
@@ -91,6 +117,7 @@ const ListTable = () => {
       </Button>
     </>
   );
+  }
 };
 
 export default ListTable;
