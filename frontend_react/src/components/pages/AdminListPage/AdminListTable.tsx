@@ -50,11 +50,6 @@ const AdminListTable = () => {
     };
     return (
       <>
-        <Switch
-          checked={showList}
-          onChange={(e) => handleShowListChange(!showList)}
-        />
-        show List Entries <br />
         <Button
           id="linkToHome"
           variant="contained"
@@ -67,6 +62,12 @@ const AdminListTable = () => {
         >
           Homepage
         </Button>
+        <br />
+        <Switch
+          checked={showList}
+          onChange={(e) => handleShowListChange(!showList)}
+        />
+        show List Entries
         {lists.map((list) => (
           <div key={list.id}>
             <AdminListEntry list={list} handleDelete={handleDelete} />
@@ -94,11 +95,6 @@ const AdminListTable = () => {
     };
     return (
       <>
-        <Switch
-          checked={showList}
-          onChange={(e) => handleShowListChange(!showList)}
-        />
-        show Users <br />
         <Button
           id="linkToHome"
           variant="contained"
@@ -111,6 +107,12 @@ const AdminListTable = () => {
         >
           Homepage
         </Button>
+        <br />
+        <Switch
+          checked={showList}
+          onChange={(e) => handleShowListChange(!showList)}
+        />
+        show Users
         {users.map((user) => (
           <div key={user.id}>
             <AdminUserEntry user={user} handleDelete={handleDelete} />

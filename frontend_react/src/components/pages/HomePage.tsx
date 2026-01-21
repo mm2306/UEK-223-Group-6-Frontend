@@ -4,7 +4,9 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import { User } from "../../types/models/User.model";
-import ActiveUserContext, {ActiveUserContextType} from "../../Contexts/ActiveUserContext";
+import ActiveUserContext, {
+  ActiveUserContextType,
+} from "../../Contexts/ActiveUserContext";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ export default function HomePage() {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const activeUser = useContext(ActiveUserContext);
 
-  const checkIsAdmin = (user:ActiveUserContextType): boolean => {
+  const checkIsAdmin = (user: ActiveUserContextType): boolean => {
     return user.checkRole("ADMIN");
   };
 
@@ -88,34 +90,49 @@ export default function HomePage() {
           >
             List Entry Page
           </Button>
-          {isAdmin ?
+          {isAdmin ? (
+            <Button
+              id="linkToAdmin"
+              variant="contained"
+              sx={{
+                mt: 3,
+                backgroundColor: "#00d4ff",
+                "&:hover": { backgroundColor: "#0f0fcf" },
+              }}
+              onClick={() => navigate("/admin")}
+            >
+              Admin page
+            </Button>
+          ) : (
+            <></>
+          )}
           <Button
-            id="linkToAdmin"
+            id="linkToLogout"
+            variant="contained"
+            sx={{
+              mt: 3,
+              backgroundColor: "#fb6f6f",
+              "&:hover": { backgroundColor: "#ff1212" },
+            }}
+            onClick={activeUser.logout}
+          >
+            Logout
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button
             variant="contained"
             sx={{
               mt: 3,
               backgroundColor: "#00d4ff",
               "&:hover": { backgroundColor: "#0f0fcf" },
             }}
-            onClick={() => navigate("/admin")}
+            onClick={() => navigate("/login")}
           >
-            Admin page
-          </Button> 
-          : 
-          <></> }
+            Login
+          </Button>
         </>
-      ) : (
-        <Button
-          variant="contained"
-          sx={{
-            mt: 3,
-            backgroundColor: "#00d4ff",
-            "&:hover": { backgroundColor: "#0f0fcf" },
-          }}
-          onClick={() => navigate("/login")}
-        >
-          Login
-        </Button>
       )}
     </Box>
   );

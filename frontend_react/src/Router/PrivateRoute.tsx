@@ -66,7 +66,18 @@ const PrivateRoute: React.FC<Props> = ({
   return (
     //Pagelayout puts the Navigation, Menu etc. around the component
     <div>
-      <Button onClick={activeUserContext.logout}>Logout</Button>
+      <Button
+            id="linkToLogout"
+            variant="contained"
+            sx={{
+              mt: 3,
+              backgroundColor: "#fb6f6f",
+              "&:hover": { backgroundColor: "#ff1212" },
+            }}
+            onClick={activeUserContext.logout}
+          >
+            Logout
+          </Button>
       {RouteComponent}
     </div>
   );
