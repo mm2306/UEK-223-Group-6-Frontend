@@ -18,10 +18,14 @@ const ListService = {
     return api.put(`/list-entries/${list.id}`, list);
   },
 
-  addList: (list: List) => {
-    return api.post("/list-entries", {title: list.title, text: list.text, importance: list.importance, user: list.user }).then((res) => {
-      return res.data;
+  addList: async (list: List) => {
+    const res = await api.post("/list-entries", {
+      title: list.title,
+      text: list.text,
+      importance: list.importance,
+      user: list.user
     });
+    return res.data;
   },
 
   getAllLists: async () => {
@@ -34,6 +38,7 @@ const ListService = {
         importance:
           Importance[listElement.importance as keyof typeof Importance],
         user: listElement.user,
+        createdAt: new Date(listElement.createdAt),
       } as List;
     });
     return data;
@@ -49,6 +54,7 @@ const ListService = {
         importance:
           Importance[listElement.importance as keyof typeof Importance],
         user: listElement.user,
+        createdAt: new Date(listElement.createdAt),
       } as List;
     });
     return data;
