@@ -29,8 +29,8 @@ const UserForm = ({ list, submitActionHandler, previousPage }: ListProps) => {
       user: list?.user ?? user!
     },
     validationSchema: object({
-      title: string().required().min(2).max(50),
-      text: string().required().min(10).max(200),
+      title: string().required().min(3).max(50),
+      text: string().required().max(500),
     }),
     onSubmit: (values: List) => {
       submitActionHandler(values);
