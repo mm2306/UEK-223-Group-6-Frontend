@@ -24,6 +24,8 @@ const ListEntry = ({ list, handleDelete, handleEdit }: ListEntryProps) => {
         <CardContent sx={{ borderBottom: "1px solid" }}>
           Author: {list.user.firstName} {list.user.lastName} <br />
           Priority: {Importance[list.importance]} <br /> {list.title} <br />
+          Date: {list.createdAt.toLocaleDateString("en-GB")} <br />
+          Time: {list.createdAt.toLocaleTimeString("en-GB")} <br />
           -------------------------------------- <br />
           {list.text}
           <br />
