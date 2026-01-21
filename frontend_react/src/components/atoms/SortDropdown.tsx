@@ -9,7 +9,7 @@ type Props = {
     className?: string;
 };
 
-const SortDropdown = ({ categories = Object.values(SortByListCategories) as SortByListCategories[], value = '', onChange, className }: Props) => {
+const SortDropdown = ({ categories = Object.values(SortByListCategories) as SortByListCategories[], value, onChange, className }: Props) => {
     return (
         <FormControl size="small" className={className} sx={{ minWidth: 160 }}>
             <InputLabel id="sort-label">Sort by</InputLabel>
@@ -17,7 +17,7 @@ const SortDropdown = ({ categories = Object.values(SortByListCategories) as Sort
                 labelId="sort-label"
                 label="Sort by"
                 value={value}
-                onChange={(e) => onChange && onChange(e.target.value as string)}
+                onChange={(e) => onChange && onChange(e.target.value as SortByListCategories)}
             >
                 {categories.map((category) => (
                     <MenuItem key={category} value={category}>{category}</MenuItem>

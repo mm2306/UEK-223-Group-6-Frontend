@@ -9,13 +9,13 @@ type Props = {
     className?: string;
 };
 
-const FilterDropdown = ({ importanceLevels = Object.values(Importance) as Importance[], value = '', onChange, className }: Props) => {
+const FilterByImportanceDropdown = ({ importanceLevels = Object.values(Importance) as Importance[], value = '', onChange, className }: Props) => {
     return (
-        <FormControl size="small" className={className} sx={{ minWidth: 160 }}>
-            <InputLabel id="filter-label">Filter by</InputLabel>
+        <FormControl size="small" className={className} sx={{ minWidth: 200 }}>
+            <InputLabel id="filter-label">Filter by Importance</InputLabel>
             <Select
                 labelId="filter-label"
-                label="Filter by"
+                label="Filter by Importance"
                 value={value}
                 onChange={(e) => onChange && onChange(e.target.value as string)}
             >
@@ -27,4 +27,4 @@ const FilterDropdown = ({ importanceLevels = Object.values(Importance) as Import
     );
 };
 
-export default FilterDropdown;
+export default FilterByImportanceDropdown;
