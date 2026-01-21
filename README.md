@@ -40,6 +40,8 @@ Open Postman, click **Import**, and select the entire `postman` directory from t
 #### 2. Select Environment
 Select the imported environment in the **top right corner**. 
 
+![postman3.png](frontend_react/public/postman3.png)
+
 > **!CAUTION!**
 > The tests will fail if no environment is active.
 
@@ -49,6 +51,13 @@ Select the imported environment in the **top right corner**.
 ![postman2.png](frontend_react/public/postman2.png)
 
 Click the **three dots** next to the collection, choose **Run**, and click **Run UEK-223-Group_6**.
+
+---
+
+#### 4. Check results
+![postman4.png](frontend_react/public/postman4.png)
+
+If they look something like this, everything went right :)
 
 ---
 
