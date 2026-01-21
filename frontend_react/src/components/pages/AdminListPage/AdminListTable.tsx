@@ -54,10 +54,19 @@ const AdminListTable = () => {
           checked={showList}
           onChange={(e) => handleShowListChange(!showList)}
         />
-        show List Entries{" "}
-        <Link id="linkToHome" href="/">
-          To the Homepage
-        </Link>
+        show List Entries <br />
+        <Button
+          id="linkToHome"
+          variant="contained"
+          sx={{
+            mt: 3,
+            backgroundColor: "#00d4ff",
+            "&:hover": { backgroundColor: "#0f0fcf" },
+          }}
+          onClick={() => navigate("/")}
+        >
+          Homepage
+        </Button>
         {lists.map((list) => (
           <div key={list.id}>
             <AdminListEntry list={list} handleDelete={handleDelete} />
@@ -89,7 +98,19 @@ const AdminListTable = () => {
           checked={showList}
           onChange={(e) => handleShowListChange(!showList)}
         />
-        show Users <Link href="/list">To the List</Link>
+        show Users <br />
+        <Button
+          id="linkToHome"
+          variant="contained"
+          sx={{
+            mt: 3,
+            backgroundColor: "#00d4ff",
+            "&:hover": { backgroundColor: "#0f0fcf" },
+          }}
+          onClick={() => navigate("/")}
+        >
+          Homepage
+        </Button>
         {users.map((user) => (
           <div key={user.id}>
             <AdminUserEntry user={user} handleDelete={handleDelete} />

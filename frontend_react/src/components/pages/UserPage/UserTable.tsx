@@ -33,9 +33,18 @@ const UserTable = () => {
 
   return (
     <>
-      <Link id="linkToHome" href="/">
-        To the Homepage
-      </Link>
+      <Button
+        id="linkToHome"
+        variant="contained"
+        sx={{
+          mt: 3,
+          backgroundColor: "#00d4ff",
+          "&:hover": { backgroundColor: "#0f0fcf" },
+        }}
+        onClick={() => navigate("/")}
+      >
+        Homepage
+      </Button>
       <div key={user.id}>
         <UserEntry
           handleEdit={handleEdit}

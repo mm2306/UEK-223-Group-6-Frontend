@@ -19,10 +19,6 @@ const ListTable = () => {
   const [lists, setLists] = useState<List[]>([]);
   const activeUser = useContext(ActiveUserContext);
 
-  const isAdmin = (user: ActiveUserContextType): boolean => {
-    return user.checkRole("ADMIN");
-  };
-
   useEffect(() => {
     ListService.getAllLists().then((data) => {
       setLists(data);
@@ -45,11 +41,19 @@ const ListTable = () => {
 
   return (
     <>
-      <Link id="linkToHome" href="/">
-        To the Homepage
-      </Link>
+      <Button
+        id="linkToHome"
+        variant="contained"
+        sx={{
+          mt: 3,
+          backgroundColor: "#00d4ff",
+          "&:hover": { backgroundColor: "#0f0fcf" },
+        }}
+        onClick={() => navigate("/")}
+      >
+        Homepage
+      </Button>
       {"  "}
-      {isAdmin(activeUser) ? <Link href="/admin">To Admin Page</Link> : <></>}
       {lists.map((list) => (
         <div key={list.id}>
           <ListEntry

@@ -3,15 +3,22 @@ import logo from "../../logo1.png";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import ActiveUserContext from "../../Contexts/ActiveUserContext";
+import { User } from "../../types/models/User.model";
+import ActiveUserContext, {ActiveUserContextType} from "../../Contexts/ActiveUserContext";
 
 export default function HomePage() {
   const navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
-  const { user } = useContext(ActiveUserContext);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const activeUser = useContext(ActiveUserContext);
+
+  const checkIsAdmin = (user:ActiveUserContextType): boolean => {
+    return user.checkRole("ADMIN");
+  };
 
   const checkLoggedIn = (): boolean => {
-    if (user != null && user.id) {
+    if (activeUser.user != null && activeUser.user.id) {
+      setIsAdmin(checkIsAdmin(activeUser));
       return true;
     }
     return false;
@@ -58,7 +65,7 @@ export default function HomePage() {
       {isLoggedIn ? (
         <>
           <Button
-          id="linkToUser"
+            id="linkToUser"
             variant="contained"
             sx={{
               mt: 3,
@@ -81,6 +88,21 @@ export default function HomePage() {
           >
             List Entry Page
           </Button>
+          {isAdmin ?
+          <Button
+            id="linkToAdmin"
+            variant="contained"
+            sx={{
+              mt: 3,
+              backgroundColor: "#00d4ff",
+              "&:hover": { backgroundColor: "#0f0fcf" },
+            }}
+            onClick={() => navigate("/admin")}
+          >
+            Admin page
+          </Button> 
+          : 
+          <></> }
         </>
       ) : (
         <Button
