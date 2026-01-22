@@ -8,9 +8,10 @@ import { useState } from "react";
 type ListEntryProps = {
   user: User;
   handleDelete : (id: string) => Promise<void>
+    handleEdit: (id: string) => void;
 };
 
-const UserEntry = ({ user, handleDelete }: ListEntryProps) => {
+const UserEntry = ({ user, handleDelete, handleEdit }: ListEntryProps) => {
 
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
@@ -23,6 +24,12 @@ const UserEntry = ({ user, handleDelete }: ListEntryProps) => {
           <CardContent>
               {user.firstName} {user.lastName} {user.email}
               <CardActions>
+                  <Button
+                      size="small"
+                      color="primary"
+                      variant="contained"
+                      onClick={() => handleEdit(user.id)}
+                  >edit</Button>
                   {isDeleting ? (
                       <>
                           <Button
@@ -52,6 +59,7 @@ const UserEntry = ({ user, handleDelete }: ListEntryProps) => {
                           Delete
                       </Button>
                   )}
+
               </CardActions>
           </CardContent>
       </Card>

@@ -114,6 +114,11 @@ const AdminListTable = () => {
             globalThis.location.reload();
             alert("You deleted a user profile!");
         };
+
+        const handleEdit = async (id: string) => {
+            navigate("../user/edit/admin/" + id);
+        };
+
         return (
             <>
                 <Button
@@ -136,7 +141,7 @@ const AdminListTable = () => {
                 show Users
                 {users.map((user) => (
                     <div key={user.id}>
-                        <AdminUserEntry user={user} handleDelete={handleDelete} />
+                        <AdminUserEntry user={user} handleDelete={handleDelete} handleEdit={handleEdit} />
                     </div>
                 ))}
                 <br />
