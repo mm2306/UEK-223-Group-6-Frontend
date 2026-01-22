@@ -26,7 +26,7 @@ const ListService = {
     });
   },
 
-  getAllLists: async (page = 0, params?: { importance?: string; sortBy?: string; sortOrder?: string; userId?: string; isAscending?: boolean }) => {
+  getAllLists: async (page = 0, params?: { importance?: string; sortBy?: string; userId?: string; isAscending?: boolean }) => {
     const response = await api.get(`/list-entries/user?page=${page}`, { params });
     return (response.data as ListDTO[]).map((listElement) => ({
       id: listElement.id,
@@ -38,7 +38,7 @@ const ListService = {
     } as List));
   },
 
-  getAllListsAdmin: async (page = 0, params?: { importance?: string; sortBy?: string; sortOrder?: string; userId?: string }) => {
+  getAllListsAdmin: async (page = 0, params?: { importance?: string; sortBy?: string; userId?: string }) => {
     const response = await api.get(`/list-entries?page=${page}`, { params });
     return (response.data as ListDTO[]).map((listElement) => ({
       id: listElement.id,
