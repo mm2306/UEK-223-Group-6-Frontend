@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ListEntry from "../../molecules/ListEntry";
 import ListDropdowns from "../../molecules/ListDropdowns/ListDropdowns";
-import { User } from "../../../types/models/User.model";
-import UserService from "../../../Services/UserService";
 
 const ListTable = () => {
   const navigate = useNavigate();
@@ -16,19 +14,9 @@ const ListTable = () => {
 
 
   const [filterValue, setFilterValue] = useState<string>('');
-<<<<<<< HEAD
   const [sortValue, setSortValue] = useState<SortByListCategories>();
-=======
-  const [sortValue, setSortValue] = useState<string>('');
-  const [userFilterValue, setUserFilterValue] = useState<string>('');
-  const [users, setUsers] = useState<User[]>([]);
 
-  const isAdmin = (user: ActiveUserContextType): boolean => {
-    return user.checkRole("ADMIN");
-  };
->>>>>>> db91764 (UEK-223 Frontend | Implementation)
-
-  const loadLists = (importance?: string, sortBy?: string, userId?: string) => {
+  const loadLists = (importance?: string, sortBy?: string, order?: string) => {
     const params: any = {};
     if (importance) params.importance = importance;
     if (sortBy) {
@@ -39,13 +27,13 @@ const ListTable = () => {
       };
       params.sortBy = SORT_FIELD_MAP[sortBy] || sortBy;
     }
+    if (order) params.sortOrder = order;
 
   useEffect(() => {
       loadLists(filterValue || undefined, sortValue || undefined, sortOrder || undefined);
     ListService.getAllLists(page, params).then((data) => {
       setLists(data);
     });
-<<<<<<< HEAD
   }, [page, filterValue, sortValue]);
 
   useEffect(() => {
@@ -54,38 +42,6 @@ const ListTable = () => {
         loadLists();
     });
   }, []);
-=======
-  }, []);
-    if (userId) params.userId = userId;
-    if (isAdmin(activeUser)) {
-      ListService.getAllListsAdmin(params).then((data) => {
-        setLists(data);
-      });
-    } else {
-      ListService.getAllLists(params).then((data) => {
-        setLists(data);
-      });
-    }
-  };
-
-        useEffect(() => {
-            loadLists();
-        }, []);
-  useEffect(() => {
-    if (isAdmin(activeUser)) {
-      UserService.getAllUsers().then((data) => {
-        setUsers(data.data);
-      });
-    }
-    loadLists();
-  }, []);
-
-  useEffect(() => {
-    loadLists(filterValue || undefined, sortValue || undefined);
-  }, [filterValue, sortValue]);
-    loadLists(filterValue || undefined, sortValue || undefined, userFilterValue || undefined);
-  }, [filterValue, sortValue, userFilterValue]);
->>>>>>> db91764 (UEK-223 Frontend | Implementation)
 
   const handleAdd = () => {
     navigate("../list/edit/list");
@@ -103,21 +59,6 @@ const ListTable = () => {
 
   return (
     <>
-<<<<<<< HEAD
-=======
-      <Link href="/user">To User Page</Link>{"  "}
-        <ListDropdowns
-          filterValue={filterValue}
-          sortValue={sortValue}
-          onFilterChange={setFilterValue}
-          onSortChange={setSortValue}
-          users={users}
-          userFilterValue={userFilterValue}
-          onUserFilterChange={setUserFilterValue}
-          isAdmin={isAdmin(activeUser)}
-        />
-      {isAdmin(activeUser) ? <Link href="/admin">To Admin Page</Link> : <></>}
->>>>>>> db91764 (UEK-223 Frontend | Implementation)
       <Button
         id="linkToHome"
         variant="contained"

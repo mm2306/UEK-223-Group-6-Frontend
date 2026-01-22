@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/system';
-import FilterByImportanceDropdown from '../../atoms/FilterByImportanceDropdown';
-import FilterByUserDropdown from "../../atoms/FilterByUserDropdown";
+import FilterDropdown from '../../atoms/FilterDropdown';
 import SortDropdown from '../../atoms/SortDropdown';
 import { Importance, SortByListCategories } from '../../../types/models/List.model';
-import { User } from '../../../types/models/User.model';
 
 type ListDropdownsProps = {
     importanceLevels?: Importance[];
@@ -14,10 +12,6 @@ type ListDropdownsProps = {
     onFilterChange?: (value: string) => void;
     onSortChange?: (value: string) => void;
     className?: string;
-    users?: User[];
-    userFilterValue?: string;
-    onUserFilterChange?: (value: string) => void;
-    isAdmin?: boolean;
 };
 
 const ListDropdowns = ({
@@ -28,10 +22,6 @@ const ListDropdowns = ({
                            onFilterChange,
                            onSortChange,
                            className,
-                           users = [],
-                           userFilterValue,
-                           onUserFilterChange,
-                           isAdmin = false,
                        }: ListDropdownsProps) => {
     const levels: Importance[] = importanceLevels.length
         ? importanceLevels
@@ -43,11 +33,9 @@ const ListDropdowns = ({
 
     const [internalFilter, setInternalFilter] = useState<string>('');
     const [internalSort, setInternalSort] = useState<string>('');
-    const [internalUserFilter, setInternalUserFilter] = useState<string>('');
 
     const currentFilter = filterValue !== undefined ? filterValue : internalFilter;
     const currentSort = sortValue !== undefined ? sortValue : internalSort;
-    const currentUserFilter = userFilterValue !== undefined ? userFilterValue : internalUserFilter;
 
     const handleFilterChange = (newValue: string) => {
         if (onFilterChange) onFilterChange(newValue);
@@ -59,17 +47,9 @@ const ListDropdowns = ({
         else setInternalSort(newValue);
     };
 
-    const handleUserFilterChange = (newValue: string) => {
-        if (onUserFilterChange) onUserFilterChange(newValue);
-        else setInternalUserFilter(newValue);
-    };
-
     return (
         <Box sx={{ padding: 2, display: 'flex', gap: 1, alignItems: 'center' }} className={className}>
-            <FilterByImportanceDropdown importanceLevels={levels} value={currentFilter} onChange={handleFilterChange} />
-            {isAdmin ? (
-                <FilterByUserDropdown users={users} value={currentUserFilter} onChange={handleUserFilterChange} />
-            ) : null}
+            <FilterDropdown importanceLevels={levels} value={currentFilter} onChange={handleFilterChange} />
             <SortDropdown categories={categories} value={currentSort} onChange={handleSortChange} />
         </Box>
     );
