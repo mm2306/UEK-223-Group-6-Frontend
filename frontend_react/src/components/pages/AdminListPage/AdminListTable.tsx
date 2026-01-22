@@ -43,7 +43,7 @@ const AdminListTable = () => {
         }
         if (userId) params.userId = userId;
         if (asc !== undefined) params.isAscending = asc;
-        const data = await ListService.getAllLists(page, params);
+        const data = await ListService.getAllListsAdmin(page, params);
         setLists(data);
     };
 
