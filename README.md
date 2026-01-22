@@ -9,6 +9,8 @@ The project is located in the `frontend_react` directory.
 ### Prerequisites
 - Node.js (Latest LTS recommended)
 - Yarn package manager
+- [Postman](https://www.postman.com/downloads/)
+- [Lighthouse Extension](https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=en-US&utm_source=ext_sidebar)
 
 ### Installation and Run
 ```bash
@@ -70,6 +72,15 @@ cd ./frontend_react
 yarn install
 yarn cypress open
 ```
+
+---
+
+## Non-Functional Testing
+
+We use **Lighthouse** for non-functional testing.
+
+![lighthouse.png](frontend_react/public/lighthouse.png)
+
 
 ---
 
