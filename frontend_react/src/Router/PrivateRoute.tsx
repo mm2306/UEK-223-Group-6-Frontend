@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import * as jwt from 'jsonwebtoken';
+import { jwtDecode } from 'jwt-decode';
 import ActiveUserContext from '../Contexts/ActiveUserContext';
 import AuthorityService from '../Services/AuthorityService';
 import { Button } from '@mui/material';
@@ -33,7 +33,7 @@ const PrivateRoute: React.FC<Props> = ({
       return false;
     }
     tokenString = tokenString.replace('Bearer ', '');
-    const token: JWTType = jwt.decode(tokenString) as JWTType;
+    const token: JWTType = jwtDecode<JWTType>(tokenString);
     // Check if token does not exist or doesn't have an expiration claim or is expired.
     return !(!token || !token.exp || token.exp < Date.now() / 1000);
 
@@ -67,17 +67,17 @@ const PrivateRoute: React.FC<Props> = ({
     //Pagelayout puts the Navigation, Menu etc. around the component
     <div>
       <Button
-            id="linkToLogout"
-            variant="contained"
-            sx={{
-              mt: 3,
-              backgroundColor: "#fb6f6f",
-              "&:hover": { backgroundColor: "#ff1212" },
-            }}
-            onClick={activeUserContext.logout}
-          >
-            Logout
-          </Button>
+        id="linkToLogout"
+        variant="contained"
+        sx={{
+          mt: 3,
+          backgroundColor: "#fb6f6f",
+          "&:hover": { backgroundColor: "#ff1212" },
+        }}
+        onClick={activeUserContext.logout}
+      >
+        Logout
+      </Button>
       {RouteComponent}
     </div>
   );
