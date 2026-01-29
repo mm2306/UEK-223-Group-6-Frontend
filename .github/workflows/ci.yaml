@@ -40,24 +40,25 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v4
 
-      - name: Start Backend Stack
+      - name: Start Backend
         run: |
           docker compose -f frontend_react/docker-compose.yml pull
           docker compose -f frontend_react/docker-compose.yml up -d
+          
+          echo "Waiting for Backend to be healthy..."
+          timeout 20s bash -c 'until curl -s localhost:8080 > /dev/null; do sleep 5; done' || (docker compose -f frontend_react/docker-compose.yml logs && exit 1)
 
-      - name: Wait for Backend
-        uses: action-hub/wait-for-port@1.0.1
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
         with:
-          port: 8080
-          host: localhost
-          timeout: 120s
+          node-version: '20'
 
       - name: Install and Run Newman
         working-directory: ./spring_backend/postman
         run: |
-          # We run this via npx so we don't need a formal "Setup Node" step 
-          # (Node is pre-installed on ubuntu-latest runners)
-          npx newman run "$(find . -name '*Collection.json')" -e "$(find . -name '*Environment.postman_environment.json')"
+          npm install -g newman
+          # Using find to ensure we get the right file even if paths vary slightly
+          newman run "$(find . -name '*Collection.json')" -e "$(find . -name '*Environment.postman_environment.json')"
 
       - name: Stop and cleanup Docker
         if: always()
@@ -136,7 +137,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Revert last commit
         run: |
           git config --global user.name "mm2306"
