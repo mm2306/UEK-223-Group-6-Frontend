@@ -106,6 +106,6 @@ jobs:
       uses: tsickert/discord-webhook@v7.0.0
       with:
         webhook-url: ${{ secrets.WEBHOOK_URL }}
-        content: "@everyone Michel submitted a new commit on main branch with successful running tests and deploy #IndianBoyzSubmitCommits"
+        content: "@everyone Michel submitted a new commit on main branch with successful running tests and deploy [visit site](https://michel.dev.noseryoung.com) #IndianBoyzSubmitCommits"
         username: "CI/CD Pipeline"
         avatar-url: "https://static.wikia.nocookie.net/roblox-goofy-runners/images/6/66/Nerd_Current.png"
