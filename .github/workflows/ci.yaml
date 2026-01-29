@@ -44,14 +44,10 @@ jobs:
         run: |
           docker compose -f frontend_react/docker-compose.yml pull
           docker compose -f frontend_react/docker-compose.yml up -d
-          
-          echo "Waiting for Backend to be healthy..."
-          timeout 20s bash -c 'until curl -s localhost:8080 > /dev/null; do sleep 5; done' || (docker compose -f frontend_react/docker-compose.yml logs && exit 1)
+          docker ps
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - name: Wait for Backend
+        run: npx wait-on http://localhost:8923 --timeout 120000
 
       - name: Install and Run Newman
         working-directory: ./spring_backend/postman
