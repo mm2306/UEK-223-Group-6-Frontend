@@ -40,14 +40,18 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v4
 
-      - name: Start Backend Stack
+      - name: Start Backend
         run: |
           docker compose -f frontend_react/docker-compose.yml pull
           docker compose -f frontend_react/docker-compose.yml up -d
-          docker ps
+          
+          echo "Waiting for Backend to be healthy..."
+          timeout 20s bash -c 'until curl -s localhost:8080 > /dev/null; do sleep 5; done' || (docker compose -f frontend_react/docker-compose.yml logs && exit 1)
 
-      - name: Wait for Backend
-        run: npx wait-on tcp:localhost:8923 http://localhost:8923 --timeout 180000
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Install and Run Newman
         working-directory: ./spring_backend/postman
