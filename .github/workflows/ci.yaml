@@ -44,18 +44,19 @@ jobs:
         run: |
           docker compose -f frontend_react/docker-compose.yml pull
           docker compose -f frontend_react/docker-compose.yml up -d
-          echo "Current Container Status:"
+          echo "Waiting 10s for Docker to initialize networking..."
+          sleep 10
           docker ps
 
       - name: Wait for Backend
-        run: npx wait-on tcp:localhost:8923 http://localhost:8923 --timeout 120000
+        run: npx wait-on http://localhost:8080 --timeout 60000 --interval 2000
 
       - name: Install and Run Newman
         working-directory: ./spring_backend/postman
         run: |
           npx newman run "$(find . -name '*Collection.json')" \
             -e "$(find . -name '*Environment.postman_environment.json')" \
-            --env-var "baseUrl=http://localhost:8923"
+            --env-var "baseUrl=http://localhost:8080"
 
       - name: Stop and cleanup Docker
         if: always()
