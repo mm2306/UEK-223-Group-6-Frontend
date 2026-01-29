@@ -11,7 +11,6 @@ on:
 permissions:
   contents: write
   actions: write
-  workflows: write 
 
 jobs:
   build:
@@ -141,9 +140,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Revert last commit
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          # Revert and push
+          git config --global user.name "mm2306"
+          git config --global user.email "michel.mahadeva@edu.tbz.ch"
           git revert HEAD --no-edit
           git push origin main
       - name: Discord Failure Message
