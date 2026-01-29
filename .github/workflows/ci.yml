@@ -11,6 +11,7 @@ on:
 permissions:
   contents: write
   actions: write
+  workflows: write
 
 jobs:
   build:
@@ -59,9 +60,14 @@ jobs:
         run: |
           npm install newman minimist @actions/core
 
+      - name: List files in Postman directory
+        working-directory: ./spring_backend/postman
+        run: ls -R
+
       - name: Run Postman Collection
         working-directory: ./spring_backend/postman
         run: |
+          npm install -g newman
           newman run ./UEK-223-Group_6-Collection.json -e ./UEK-223-Group_6-Environment.postman_environment.json
 
   frontend-e2e-tests:
@@ -139,6 +145,9 @@ jobs:
     runs-on: ubuntu-latest
     if: failure()
     needs: [build, backend-integration-tests, frontend-e2e-tests, deploy, health-check]
+    permissions:
+      contents: write
+      workflows: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -149,6 +158,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # The --no-edit flag prevents an interactive editor from opening
           git revert HEAD --no-edit
           git push origin main
         
