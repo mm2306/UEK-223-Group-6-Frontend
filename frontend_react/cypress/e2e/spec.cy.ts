@@ -1,12 +1,12 @@
 describe("home page spec", () => {
   it("passes", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
 });
 
 describe("check login", () => {
   it("passes", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="email"]').type("user@example.com");
     cy.get('input[name="password"]').type("1234");
     cy.get('button[name="submit"]').click();
@@ -15,7 +15,7 @@ describe("check login", () => {
 
 describe("check add list entry", () => {
   it("passes", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="email"]').type("user@example.com");
     cy.get('input[name="password"]').type("1234");
     cy.get('button[name="submit"]').click();
@@ -34,7 +34,7 @@ describe("check add list entry", () => {
 
 describe("check failing add list entry", () => {
   it("passes", () => {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("/login");
     cy.get('input[name="email"]').type("user@example.com");
     cy.get('input[name="password"]').type("1234");
     cy.get('button[name="submit"]').click();
@@ -51,7 +51,8 @@ describe("check failing add list entry", () => {
 
 describe("visit site without authorization", () => {
   it("passes", () => {
-    cy.visit("http://localhost:3000/list/edit/list");
+    cy.visit("/list/edit/list");
     cy.url().should("include", "/login");
   });
 });
+
