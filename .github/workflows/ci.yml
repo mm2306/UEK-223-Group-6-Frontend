@@ -62,7 +62,7 @@ jobs:
       - name: Run Postman Collection
         working-directory: ./spring_backend/postman
         run: |
-          node run-collections-in-directory.js -e ./UEK-223-Group_6-Environment.postman_environment.json
+          newman run ./UEK-223-Group_6-Collection.json -e ./UEK-223-Group_6-Environment.postman_environment.json
 
   frontend-e2e-tests:
     runs-on: ubuntu-latest
