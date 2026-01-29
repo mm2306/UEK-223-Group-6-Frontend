@@ -1,10 +1,11 @@
 {
   "info": {
-    "_postman_id": "2383dabc-0929-4e59-bb30-29d5560421f7",
+    "_postman_id": "ace666e4-2232-46e8-9bd3-3122c22cd358",
     "name": "UEK-223-Group_6",
     "description": "Auto-discovered API endpoints from Spring Boot backend (UEK-223-Group-6-Backend). This collection contains all HTTP routes found in the UserController.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "43313456"
+    "_exporter_id": "43313961",
+    "_collection_link": "https://go.postman.co/collection/43313961-ace666e4-2232-46e8-9bd3-3122c22cd358?source=collection_link"
   },
   "item": [
     {
@@ -68,7 +69,7 @@
                   "\r",
                   "    pm.expect(body).to.have.property(\"timeStamp\");\r",
                   "    pm.expect(body).to.have.property(\"errors\");\r",
-                  "    pm.expect(body.errors).to.have.property(\"email\", \"muss eine korrekt formatierte E-Mail-Adresse sein\");\r",
+                  "    pm.expect(body.errors).to.have.property(\"email\", \"must be a well-formed email address\");\r",
                   "});\r",
                   "\r",
                   ""
