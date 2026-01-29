@@ -44,3 +44,13 @@ jobs:
             git pull
             docker compose pull
             docker compose up -d
+  message:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Discord Webhook Action
+      uses: tsickert/discord-webhook@v7.0.0
+      with:
+        webhook-url: ${{ secrets.WEBHOOK_URL }}
+        content: "@everyone Michel submitted a new commit on main branch"
+        username: "CI/CD Pipeline"
+        avatar-url: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
