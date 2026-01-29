@@ -46,7 +46,7 @@ jobs:
           java-version: '17'
       - name: Start Backend
         run: |
-          sleep 20 # Give the app time to boot up
+          sleep 20
 
       - name: Setup NodeJS
         uses: actions/setup-node@v4
