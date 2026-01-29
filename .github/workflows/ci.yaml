@@ -62,7 +62,7 @@ jobs:
 
       - name: Stop and cleanup Docker
         if: always()
-        run: docker stop backend-container && docker rm backend-container
+        run: docker compose -f frontend_react/docker-compose.yml down
 
   frontend-e2e-tests:
     runs-on: ubuntu-latest
