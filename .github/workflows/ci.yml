@@ -47,10 +47,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Build Backend JAR with Gradle
+        working-directory: ./spring_backend
+        run: |
+          chmod +x ./gradlew
+          ./gradlew bootJar
+
       - name: Start Backend
         run: |
           echo "Starting Backend..."
-          java -jar ./spring_backend/target/*.jar & 
+          # Gradle usually puts the jar in build/libs
+          java -jar ./spring_backend/build/libs/*.jar & 
           sleep 30 
 
       - name: Setup NodeJS
@@ -58,15 +65,10 @@ jobs:
         with:
           node-version: '20.19.4'
 
-      - name: List files (For Debugging)
-        working-directory: ./spring_backend/postman
-        run: ls -R
-
       - name: Install and Run Newman
         working-directory: ./spring_backend/postman
         run: |
           npm install -g newman
-          # Double check these filenames match the output of 'ls -R'
           newman run ./UEK-223-Group_6-Collection.json -e ./UEK-223-Group_6-Environment.postman_environment.json
 
   frontend-e2e-tests:
@@ -142,11 +144,10 @@ jobs:
 
   revert-commit:
     runs-on: ubuntu-latest
-    if: failure()
     needs: [build, backend-integration-tests, frontend-e2e-tests, deploy, health-check]
+    if: always() && contains(needs.*.result, 'failure')
     permissions:
       contents: write
-      workflows: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -157,7 +158,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          # The --no-edit flag prevents an interactive editor from opening
           git revert HEAD --no-edit
           git push origin main
         
@@ -165,5 +165,5 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: "@everyone ⚠️ **Pipeline Failed!** Michel's last commit caused an error. The commit has been automatically reverted on `main`. Check the logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          content: "@everyone ⚠️ **Pipeline Failed!** Michel's last commit caused an error and was automatically reverted. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           username: "CI/CD Revert Bot"
