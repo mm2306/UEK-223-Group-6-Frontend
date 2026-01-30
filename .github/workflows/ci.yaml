@@ -30,12 +30,12 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: perayri
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Push Frontend
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend_reaction
+          context: ./frontend_react
           push: true
           tags: |
             michelm2306/list-frontend:${{ env.APP_VERSION }}
@@ -172,7 +172,7 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          embed-description: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           embed-image-url: "https://static01.nyt.com/athletic/uploads/wp/2026/01/18164722/GettyImages-2256403929.jpg"
           embed-color: 16711680
           embed-title: "Aura loss"
