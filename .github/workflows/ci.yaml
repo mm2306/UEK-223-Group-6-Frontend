@@ -174,6 +174,6 @@ jobs:
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
           embed-description: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          embed-image-url: "https://static01.nyt.com/athletic/uploads/wp/2026/01/18164722/GettyImages-2256403929.jpg"
+          embed-image-url: "https://media1.tenor.com/m/mZM6pj_SDoMAAAAd/baggio-miss.gif"
           embed-color: 16711680
           embed-title: "Aura loss"
