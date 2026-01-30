@@ -144,7 +144,7 @@ jobs:
       uses: tsickert/discord-webhook@v7.0.0
       with:
         webhook-url: ${{ secrets.WEBHOOK_URL }}
-        content: "✅ Michel submitted a new commit. [visit site](https://michel.dev.noseryoung.ch) #StayComitting"
+        content: "✅ Michel submitted a new commit. [visit site](https://michel.dev.noseryoung.ch) #StayComitting #AuraFarming"
 
   revert-commit:
     runs-on: ubuntu-latest
