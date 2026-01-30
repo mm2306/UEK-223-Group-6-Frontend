@@ -148,7 +148,7 @@ jobs:
       with:
         webhook-url: ${{ secrets.WEBHOOK_URL }}
         embed-description: "✅ Michel submitted a new commit. [visit site](https://michel.dev.noseryoung.ch) #StayComitting #AuraFarming"
-        embed-image-url: "https://cdn.dailysports.net/dailysports/20250914/63ee67a9f021b7766460a42ba6f6b5f7dd1b299c7bc31df0c17b9429f8f37ca3-1200-675.jpg"
+        embed-image-url: "https://media3.giphy.com/media/v1.Y2lkPTZjMDliOTUybWpkNWJtam5wcWh0a2xhOWRneGFhOWY5bXk4MGRwNXloamE5aTl0NCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/PJRsDUAEepBciv9p4W/giphy.gif"
         embed-title: "Aura"
         embed-color: 65280
 
