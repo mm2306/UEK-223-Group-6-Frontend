@@ -167,4 +167,4 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n Aura loss: ![Africa Cup Final](https://static01.nyt.com/athletic/uploads/wp/2026/01/18164722/GettyImages-2256403929.jpg)"
+          content: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\nAura loss: ![Africa Cup Final](https://static01.nyt.com/athletic/uploads/wp/2026/01/18164722/GettyImages-2256403929.jpg)"
