@@ -144,7 +144,7 @@ jobs:
       uses: tsickert/discord-webhook@v7.0.0
       with:
         webhook-url: ${{ secrets.WEBHOOK_URL }}
-        content: "✅ Michel submitted a new commit. [visit site](https://michel.dev.noseryoung.ch) #StayComitting #AuraFarming"
+        content: "✅ Michel submitted a new commit. [visit site](https://michel.dev.noseryoung.ch) #StayComitting #AuraFarming\nPure Aura Farming: ![Michael Olise](https://cdn.dailysports.net/dailysports/20250914/63ee67a9f021b7766460a42ba6f6b5f7dd1b299c7bc31df0c17b9429f8f37ca3-1200-675.jpg)"
 
   revert-commit:
     runs-on: ubuntu-latest
@@ -167,4 +167,4 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          content: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          content: "⚠️ **Pipeline Failed!** Reverting last commit. Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n Aura loss: ![Africa Cup Final](https://static01.nyt.com/athletic/uploads/wp/2026/01/18164722/GettyImages-2256403929.jpg)"
