@@ -22,7 +22,7 @@ jobs:
         id: vars
         run: |
           GIT_MESSAGE="${{ github.event.commits[0].message }}"
-          VERSION=$(echo "${GIT_MESSAGE%%|* }")
+          VERSION=$(echo "$GIT_MESSAGE" | cut -d'|' -f1 | xargs)
           echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
           echo "Version: ${{ env.APP_VERSION }}"
       - name: Set up Docker Buildx
